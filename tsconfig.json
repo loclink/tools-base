@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5", // 要改成es5，不然babel转换es6的时候有些转换不了
+    "module": "commonjs",
+    "outDir": "./dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "skipLibCheck": true,
+    "lib": ["DOM","ES2022"]
+  }
+}

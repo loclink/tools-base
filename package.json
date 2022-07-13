@@ -1,0 +1,33 @@
+{
+  "name": "tools-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run build:dist && npm run copy && npm run build:type",
+    "build:dist": "rollup -c",
+    "build:type": "tsc",
+    "clean": "cc rm ./dist",
+    "copy": "cc copy ./package.json ./dist/package.json && cc copy ./readme.md ./dist/readme.md",
+    "release": "npm publish ./dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "cli-cat": "^0.0.2",
+    "rollup": "^2.76.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
