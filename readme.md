@@ -1,22 +1,26 @@
 # ToolsBase
 
-> ToolsBase是一个方便您使用typescript开发个人工具库的基础构建设施。
-
-
+> ToolsBase是一个使用typescript而开发的，工具库的起手式基础构建设施。
 
 ## 安装:
 
-使用git将构建模板克隆至本地：
+从该版本开始将不再推荐您使用`git clone`的方式安装本工具，请使用`locilc`脚手架工具安装：
 
 ``` shell
-https://github.com/loclink/tools-base.git
+npm install locilc -g
+lic create my-utils
 ```
 
-安装构建设施所属的依赖：
+![locilc02](https://tva1.sinaimg.cn/large/0087ufIQgy1h46jyu4x7eg30jd0bpdm7.gif)
 
-``` shell
-cd tools-base
-npm install # 或者使用yarn install
+使用`lic create <project>`将进入到创建列表选项中，选择`tools-base`将会自动帮助你创建项目并以`<project>`参数作为该项目的名称，选择`tools-base`选项后将会提示输入一个[umd模块](https://github.com/cumt-robin/umd-learning)的全局对象名称，**虽然该脚手架未对 `umdName` 的命名格式进行检测，但还请务必以驼峰或下划线的形式命名，否则在使用过程中会产生语法错误，**`locilc`会自动帮您安装`tools-base`的所属依赖，您无需自己手动操作。
+
+在项目创建完成后你还可以自行编辑`tools.config.json`文件对`umdName`进行修改：
+
+``` json
+{
+  "umdName":"myUtils"
+}
 ```
 
 
@@ -42,7 +46,7 @@ npm install # 或者使用yarn install
 
 ## 体验:
 
-> `tools-base`本身自带两个方法`debounce`（防抖函数）、throttle（节流函数）并统一从`lib/index.ts`中导出。您可以尝试一下从`tools-base`打包并发布的体验版本，因为`tools-base`打包输出的模块格式为`umd`，所以您可以使用`Commonjs`、`ESM`、`cdn`这三种导入方式来导入模块。
+`tools-base`本身自带两个方法`debounce`（防抖函数）、throttle（节流函数）并统一从`lib/index.ts`中导出。您可以尝试一下从`tools-base`打包并发布的体验版本，`tools-base`将所有导出的方法打包为`umd`模块，所以您可以使用`Commonjs`、`ESM`、`cdn`这三种方式来引入模块。
 
 - 安装体验库`tool-cat`
 
@@ -89,7 +93,7 @@ foo()
   <body>
     <script>
       // 这里通过全局对象utils调用方法
-      const foo = utils.debounce(
+      const foo = myUtils.debounce(
         () => {
           console.log('foo被执行');
         },500);
@@ -104,29 +108,39 @@ foo()
 
 ## 快速开始：
 
-> 在`tools-base`中请使用`typescript`来开发您的工具库，这将为您的工具库提供更好的类型检测以及智能提示，所有需要导出的文件都需要放在`lib`文件夹下并通过`export`的方式统一从`index.ts`文件中导出。
+`tools-base`希望您使用`typescript`来开发您的工具库，这将为您的工具库提供更好的类型检测以及智能提示，所有需要导出的文件都需要放在`lib`文件夹下并通过`export`的方式统一从`index.ts`文件中导出。
 
-### 1. 配置cdn全局对象名称：
+### 1. 编写工具函数：
 
-`umd`模块必须拥有一个全局对象，所以需要您在`tools.config.json`文件中配置该全局对象的名称，默认名称为`utils`:
+![image](https://tva1.sinaimg.cn/large/0087ufIQgy1h46kp331qkj30nk0gzgqz.jpg)
 
-``` json
-{
-  "umdName":"utils"
-}
-```
 
-### 2. 打包：
 
-开发完成后修改`package.json`文件中的`name`选项，作为库的名称，以及`version`选项，用于管理库的版本，然后使用打包命令：
+### 2. 导出函数：
+
+![image](https://tva3.sinaimg.cn/large/0087ufIQgy1h46kqt6ys6j30t70gzafl.jpg)
+
+
+
+### 3. cdn全局对象名称：
+
+`umd`模块必须拥有一个全局对象，您可以通过修改`tools.config.json`中的`umdName`属性配置全局对象名称。
+
+
+
+### 4. 打包：
+
+打包操作输出至`dist/index.js`自动将其编译为`es5`语法，并生成`.d.ts`类型声明文件。
 
 ```  shell
 npm run build
 ```
 
-打包后将输出`dist/index.js`自动将其编译为`es5`语法，并生成`.d.ts`类型声明文件。
+![tools-base](https://tva3.sinaimg.cn/large/0087ufIQgy1h46kt0ybmbg30t60giqh3.gif)
 
-### 3. 发布：
+
+
+### 5. 发布：
 
 发布之前您需要先使用`npm login`指令登录至仓库服务器，然后使用：
 
