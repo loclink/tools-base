@@ -150,3 +150,6 @@ npm run release
 
 该命令将会自动帮您把`dist`打包文件夹作为库发布至您的npm仓库中。发布成功之后您就可以在项目中使用 `npm install <packageName>`命令安装至项目或使用cdn的方式引入并使用了。
 
+发布后通过cdn引入方式可使用该地址：`https://cdn.jsdelivr.net/npm/包名称/index.js`
+
+使用`purge.jsdelivr.net/npm/包名称/`可刷新cdn缓存
