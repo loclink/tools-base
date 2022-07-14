@@ -28,7 +28,7 @@ npm install # 或者使用yarn install
 ├── lib # 核心库 - 您所有的工具函数都应放在此文件夹内
 │   ├── index.ts # 入口文件 - 打包程序将此文件作为入口，您的所有方法都应从此文件导出
 │   └── utils #工具方法放于此文件夹或其他新建文件夹
-│       └── async-tools.ts # 本身自带的两个方法 debounce 和 throttle
+│       └── higher-order.ts # 本身自带的两个方法 debounce 和 throttle
 ├── package.json # 项目配置文件
 ├── package-lock.json 
 ├── readme.md # 描述文档

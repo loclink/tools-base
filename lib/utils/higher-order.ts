@@ -8,7 +8,7 @@
  * @param resultCallback 回调函数
  * @returns Promise
  */
-const debounce = (fn, delay, immed = false, resultCallback) => {
+const debounce = (fn, delay, immed = false, resultCallback: (result) => void) => {
   let timer; // 记录定时器
   let isExecute = false; // 记录是否立即执行过
 

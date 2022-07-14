@@ -1,1 +1,1 @@
-export { debounce, throttle } from './utils/async-tools';
+export { debounce, throttle } from './utils/higher-order';
