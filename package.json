@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run build:dist && npm run copy && npm run build:type",
+    "build": "npm run clean && npm run build:type && npm run build:dist && npm run copy",
     "build:dist": "rollup -c",
     "build:type": "tsc",
     "clean": "cc rm ./dist",
