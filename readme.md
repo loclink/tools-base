@@ -13,6 +13,8 @@ lic create my-utils
 
 ![locilc02](https://tva1.sinaimg.cn/large/0087ufIQgy1h46jyu4x7eg30jd0bpdm7.gif)
 
+如需了解其他关于`locilc`的操作请查阅：https://github.com/loclink/locilc
+
 使用`lic create <project>`将进入到创建列表选项中，选择`tools-base`将会自动帮助你创建项目并以`<project>`参数作为该项目的名称，选择`tools-base`选项后将会提示输入一个[umd模块](https://github.com/cumt-robin/umd-learning)的全局对象名称，**虽然该脚手架未对 `umdName` 的命名格式进行检测，但还请务必以驼峰或下划线的形式命名，否则在使用过程中会产生语法错误，**`locilc`会自动帮您安装`tools-base`的所属依赖，您无需自己手动操作。
 
 在项目创建完成后你还可以自行编辑`tools.config.json`文件对`umdName`进行修改：
