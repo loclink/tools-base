@@ -1,6 +1,6 @@
 # ToolsBase
 
-> ToolsBase是一个使用typescript而开发的，工具库的起手式基础构建设施。
+> ToolsBase是一个使用typescript而开发的起手式工具库开发模板和基础构建设施。
 
 ## 安装:
 
