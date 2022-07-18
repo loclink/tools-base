@@ -34,7 +34,6 @@ export default {
       sourcemap: false,
       plugins: [terser()]
     },
-
     {
       // cjs打包
       file: `dist/${pkg.name}.cjs.js`,
@@ -42,7 +41,6 @@ export default {
       name: config.umdName,
       sourcemap: false
     },
-
     {
       // esm打包
       file: `dist/${pkg.name}.esm.js`,
@@ -56,10 +54,9 @@ export default {
       format: 'umd',
       name: config.umdName,
       sourcemap: false
-    },
-
+    }
   ],
-
+  external: [], // 打包时忽略第三方库，例如： ['lodash'] 让rollup打包时不要将lodash一同打包
   plugins: [
     resolve(), // 查找和打包node_modules中的第三方模块
     commonjs(), // 将 CommonJS 转换成 ES2015 模块供 Rollup 处理

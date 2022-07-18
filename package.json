@@ -6,7 +6,7 @@
   "module": "{{projectName}}.esm.min.js",
   "umd:mian": "{{projectName}}.js",
   "jsdelivr": "{{projectName}}.min.js",
-  "types": "index.d.ts",
+  "types": "src/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc && npm run build:dist && npm run copy",
     "build:dist": "rollup -c",

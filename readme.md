@@ -1,10 +1,10 @@
 # ToolsBase
 
-> ToolsBase是一个使用typescript而开发的起手式工具库开发模板和基础构建设施。
+> 一个构建`javascript`工具库的起手式开发模板。轻而易举造轮子，我们不生产轮子，我们只是轮子的搬运工。
 
 ## 安装:
 
-从该版本开始将不再推荐您使用`git clone`的方式安装本工具，请使用`locilc`脚手架工具安装：
+请使用`locilc`脚手架工具构建模板：
 
 ``` shell
 npm install locilc -g
@@ -13,11 +13,11 @@ lic create my-utils
 
 ![locilc02](https://tva1.sinaimg.cn/large/0087ufIQgy1h46jyu4x7eg30jd0bpdm7.gif)
 
-如需了解其他关于`locilc`的操作请查阅：https://github.com/loclink/locilc
+使用`lic create <project>`指令进入创建选项，创建时请选择`tools-base`模板，创建过程需要输入一个`UMD`模块的全局对象名称，作为`cdn`方式引入时的全局对象来使用，名称若存在多个单词，推荐使用大驼峰命名，例如: `CandyBag` 请遵循变量的命名规范来命名`UMD`模块名称。
 
-使用`lic create <project>`将进入到创建列表选项中，选择`tools-base`将会自动帮助你创建项目并以`<project>`参数作为该项目的名称，选择`tools-base`选项后将会提示输入一个[umd模块](https://github.com/cumt-robin/umd-learning)的全局对象名称，**虽然该脚手架未对 `umdName` 的命名格式进行检测，但还请务必以驼峰或下划线的形式命名，否则在使用过程中会产生语法错误，**`locilc`会自动帮您安装`tools-base`的所属依赖，您无需自己手动操作。
+如需了解`locilc`其他相关操作请查阅：https://github.com/loclink/locilc。
 
-在项目创建完成后你还可以自行编辑`tools.config.json`文件对`umdName`进行修改：
+在项目创建完成后，如需修改`UMD`名称，则可以自行编辑`tools.config.json`文件对`umdName`属性进行修改：
 
 ``` json
 {
@@ -31,86 +31,84 @@ lic create my-utils
 
 ``` shell
 .
-├── lib # 核心库 - 您所有的工具函数都应放在此文件夹内
-│   ├── index.ts # 入口文件 - 打包程序将此文件作为入口，您的所有方法都应从此文件导出
-│   └── utils #工具方法放于此文件夹或其他新建文件夹
-│       └── higher-order.ts # 本身自带的两个方法 debounce 和 throttle
+├── index.d.ts  # 类型声明文件
 ├── package.json # 项目配置文件
-├── package-lock.json 
-├── readme.md # 描述文档
-├── rollup.config.js # rollup配置文件
-├── tools.config.json # tools-base的配置文件
-├── tsconfig.json # ts配置文件
-└── yarn.lock
+├── readme.md # 项目描述文件
+├── rollup.config.ts # rollup打包配置文件
+├── src # 工具库核心代码
+│   ├── index.ts # 打包入口文件，所有的方法都应从此文件统一导出
+│   └── modules # 所有的模块放于此文件夹下方便区分和管理
+│       ├── higher # 高阶函数类型的工具函数放于此
+│       │   ├── debounce.ts # 内置的防抖函数
+│       │   └── throttle.ts # 内置的节流函数
+│       └── string # 处理string的工具函数放于此
+│           └── format.ts # 格式化方法 - 内置一个字符串首字母转大写的工具函数
+├── tools.config.json # tools-base的配置文件 - 目前仅支持配置 umdName
+└── tsconfig.json # ts配置文件
 ```
+
+项目构建之初将内置三个工具函数`debounce`(防抖) `throttle`(节流) `firstUpperCase`(首字母转大写)，具体内容查看`modules`文件夹下所有包含的文件。
+
+
+
+## 约定:
+
+1. 模块要求使用`typescript`来开发你的工具库，并使用`ES6 module`的导入导出方式，即：`import ... from ...` 和 `export`。
+2. 所有方法必须统一从`src/index.ts`下导出。
+2. 请利用`typescript`的优势，多使用类型声明。这将使你的库具备良好的语法智能提示，以及类型检测。
 
 
 
 ## 体验:
 
-`tools-base`本身自带两个方法`debounce`（防抖函数）、throttle（节流函数）并统一从`lib/index.ts`中导出。您可以尝试一下从`tools-base`打包并发布的体验版本，`tools-base`将所有导出的方法打包为`umd`模块，所以您可以使用`Commonjs`、`ESM`、`cdn`这三种方式来引入模块。
-
-- 安装体验库`tool-cat`
+- 体验一下基于`tools-base`而开发的工具库`candy-bag`
 
 ``` shell
-npm install tool-cat
+npm install candy-bag
 ```
 
-- 使用Commonjs方式导入：
+- 使用`Commonjs`方式导入：
 
 ``` js
-const {debounce} = require('tool-cat');
-
-const foo = debounce(() => {
-  console.log('foo 被执行')
-}, 300)
-
-foo()
+const { firstUpperCase } = require('candy-bag');
+console.log(firstUpperCase('hello')) // Hello
 ```
 
-- 使用es6-module方式导入：
+- 使用`ES6 module`方式导入：
 
 ``` js
-import {debounce} from 'tool-cat'
-
-const foo = debounce(() => {
-  console.log('foo 被执行')
-}, 300)
-
-foo()
+import { firstUpperCase } from 'candy-bag'
+console.log(firstUpperCase('hello')) // Hello
 ```
 
-- 在html文件中使用`cdn`方式导入：
+- 在`html`文件中使用`cdn`方式导入：
 
 ``` html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/tool-cat/index.js"></script>
-  </head>
-  <body>
-    <script>
-      // 这里通过全局对象utils调用方法
-      const foo = myUtils.debounce(
-        () => {
-          console.log('foo被执行');
-        },500);
-      foo();
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 通过cdn方式引入全局对象：CandyBag -->
+  <script src="https://cdn.jsdelivr.net/npm/candy-bag"></script>
+  <script>
+    console.log(CandyBag.firstUpperCase('hello')) // Hello
+  </script>
+</body>
 </html>
-
 ```
+
+想了解更多有关`candy-bag`的内容： https://github.com/loclink/candy-bag
 
 
 
 ## 快速开始：
 
-`tools-base`希望您使用`typescript`来开发您的工具库，这将为您的工具库提供更好的类型检测以及智能提示，所有需要导出的文件都需要放在`lib`文件夹下并通过`export`的方式统一从`index.ts`文件中导出。
+默认情况下，`tools-base`的使用无需修改任何配置，按照约定的规则即可快速开发工具库，如果你使用了第三方库，例如你的工具库中依赖`lodash`，并且不希望在打包时将`loaash`打包至自己的库中，希望用户在使用时自行安装`lodash`，那么你可以在`rollup.config.ts`配置文件中找到：`external`配置项，并且配置为：`external: ['lodash'],`该配置可配置多个第三方依赖库。
 
 ### 1. 编写工具函数：
 
@@ -128,30 +126,62 @@ foo()
 
 `umd`模块必须拥有一个全局对象，您可以通过修改`tools.config.json`中的`umdName`属性配置全局对象名称。
 
+### 1.  打包：
 
+打包操作会将你编写的工具库核心代码打包至`dist`文件夹下，并按照模块类型区分文件名：
 
-### 4. 打包：
-
-打包操作输出至`dist/index.js`自动将其编译为`es5`语法，并生成`.d.ts`类型声明文件。
+打包指令：
 
 ```  shell
 npm run build
 ```
 
-![tools-base](https://tva3.sinaimg.cn/large/0087ufIQgy1h46kt0ybmbg30t60giqh3.gif)
+打包输出后的文件目录结构：
+
+``` shell
+├── dist
+│   ├── projectName.js # cjs 模块格式的文件
+│   ├── projectName.cjs.min.js # cjs 格式压缩后的文件
+│   ├── projectName.esm.js # ESM 模块格式的文件
+│   ├── projectName.esm.min.js # ESM 模块压缩后的文件
+│   ├── projectName.js # umd 模块格式文件 
+│   ├── projectName.min.js # umd 模块格式压缩文件
+│   ├── package.json # 项目配置文件
+│   ├── readme.md  # 描述文件
+│   ├── rollup.config.d.ts 
+│   └── src # 工具库的类型声明文件放于此文件夹内
+│       ├── index.d.ts 
+│       └── modules
+│           ├── higher
+│           │   ├── debounce.d.ts
+│           │   └── throttle.d.ts
+│           └── string
+│               └── format.d.ts
+```
+
+打包后你将得到一个完整的库文件，并覆盖所有模块类型。
+
+通过查看`package.json`文件我们可以看到：
+
+| 属性     | 值                     | 说明                                    |
+| -------- | ---------------------- | --------------------------------------- |
+| main     | projectName.cjs.min.js | 入口函数的文件， cjs 版本打包后的文件名 |
+| module   | projectName.esm.min.js | esm 版本打包后的文件名                  |
+| umd:mian | projectName.js         | umd 版本打包后的文件名                  |
+| jsdelivr | projectName.min.js     | jsdelivr cdn 默认加载文件               |
 
 
 
-### 5. 发布：
+### 2.  发布：
 
-发布之前您需要先使用`npm login`指令登录至仓库服务器，然后使用：
+发布之前最好先编写`readme.md`项目描述文件，然后使用`npm login`指令登录至仓库服务器，再使用指令：
 
 ``` shell
 npm run release
 ```
 
-该命令将会自动帮您把`dist`打包文件夹作为库发布至您的npm仓库中。发布成功之后您就可以在项目中使用 `npm install <packageName>`命令安装至项目或使用cdn的方式引入并使用了。
+该命令将会自动帮您把`dist`打包文件夹作为库发布至您的`npm`仓库中。发布成功之后您就可以在项目中使用 `npm install <packageName>`命令安装至项目或使用`cdn`的方式引入并使用了。
 
-发布后通过cdn引入方式可使用该地址：`https://cdn.jsdelivr.net/npm/包名称/index.js`
+发布后通过`cdn`引入方式可使用该地址：`https://cdn.jsdelivr.net/npm/包名称`
 
-使用`purge.jsdelivr.net/npm/包名称/`可刷新cdn缓存
+使用 `purge.jsdelivr.net/npm/` 包名称/可刷新`cdn`缓存。
