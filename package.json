@@ -1,0 +1,39 @@
+{
+  "name": "{{projectName}}",
+  "version": "1.0.0",
+  "description": "",
+  "main": "{{projectName}}.cjs.min.js",
+  "module": "{{projectName}}.esm.min.js",
+  "umd:mian":"{{projectName}}.js",
+  "jsdelivr":"{{projectName}}.min.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "npm run clean && tsc && npm run build:dist && npm run copy",
+    "build:dist": "rollup -c",
+    "build:type": "tsc",
+    "clean": "cc rm ./dist",
+    "copy": "cc copy ./package.json ./dist/package.json && cc copy ./readme.md ./dist/readme.md",
+    "release": "npm publish ./dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "cli-cat": "^0.0.2",
+    "eslint": "^8.20.0",
+    "rollup": "^2.76.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-node": "^10.8.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
