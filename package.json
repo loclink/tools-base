@@ -4,8 +4,8 @@
   "description": "",
   "main": "{{projectName}}.cjs.min.js",
   "module": "{{projectName}}.esm.min.js",
-  "umd:mian":"{{projectName}}.js",
-  "jsdelivr":"{{projectName}}.min.js",
+  "umd:mian": "{{projectName}}.js",
+  "jsdelivr": "{{projectName}}.min.js",
   "types": "index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc && npm run build:dist && npm run copy",
@@ -25,6 +25,7 @@
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
+    "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "cli-cat": "^0.0.2",
