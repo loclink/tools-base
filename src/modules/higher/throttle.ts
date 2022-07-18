@@ -28,7 +28,7 @@ const throttle = (
 
   // 同样返回一个新的方法提供给外界调用，并接收若干参数
   function _throttle(...arg) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // 获取当前时间
       const nowTime = new Date().getTime();
       if (!leading && !lastTime) lastTime = nowTime;
